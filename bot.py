@@ -1,11 +1,11 @@
-import discord
 from discord.ext import commands
 from difflib import SequenceMatcher
 import random
 
+from token import load_token
+
 SERVER_TOKEN = '551153505734361098'
 SERVER_NAME = 'FoxtrotDefense Multigaming'
-CLIENT_TOKEN = 'NzE4MDcyMDM4MzUwMzg5MjU5.Xtjiww.wF7IsYpD8KAiUrhlRuVAVNULZIk'
 
 
 class Bot(commands.Bot):
@@ -29,7 +29,8 @@ class Bot(commands.Bot):
             "do miecza": self.ssij
         }
 
-        self.run(CLIENT_TOKEN)
+        token = load_token()
+        self.run(token)
 
     # region Events
     async def on_ready(self):
