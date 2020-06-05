@@ -1,8 +1,9 @@
 from discord.ext import commands
 from difflib import SequenceMatcher
 import random
+import asyncio
 
-from token import load_token
+from token_loader import load_token
 
 SERVER_TOKEN = '551153505734361098'
 SERVER_NAME = 'FoxtrotDefense Multigaming'
@@ -26,7 +27,11 @@ class Bot(commands.Bot):
             "ssij": self.ssij,
             "ssij kutasa": self.ssij,
             "obciagaj": self.ssij,
-            "do miecza": self.ssij
+            "do miecza": self.ssij,
+            "nie": self.nie,
+            "tak": self.tak,
+            "rzuc": self.roll_dice,
+            "rzuc koscia": self.roll_dice
         }
 
         token = load_token()
@@ -72,7 +77,31 @@ class Bot(commands.Bot):
         await message.channel.send('Wypierdalam juz przepraszam')
 
     async def daj_glos(self, message):
-        await message.channel.send('Hau hau hau jestem psem',)
+        await message.channel.send('Hau hau hau jestem psem')
+
+    async def roll_dice(self, message):
+        await message.channel.send('Rzucam koscia ')
+        await asyncio.sleep(2)
+        dice = random.randint(1, 7)
+        if dice == 7:
+            await message.channel.send('NO KURWA wpadła do gówna ')
+            await asyncio.sleep(1)
+            await message.channel.send(f"JAPIERDOLE {message.author} weź to wyjmij")
+        else:
+            await message.channel.send(f'Wynik to {dice}  ')
+
+
+    async def nie(self, message):
+        await message.channel.send('No kurwa dobrze frajerze jebany')
+        await asyncio.sleep(random.randint(4, 10))
+        await message.channel.send('Tak żem czuł kurwo śmieciarzu.')
+
+    async def tak(self, message):
+        await message.channel.send('Co kurwa tak chcesz kurwa lepe na czoło')
+        await asyncio.sleep(random.randint(4, 10))
+        await message.channel.send('Tak żem czuł kurwo biedaku.')
+        await asyncio.sleep(random.randint(4, 10))
+        await message.channel.send('Wstawaj z tej podłogi zjebje.')
 
     async def ssij(self, message):
         sucking_messages = [f"O boze {message.author} jaki skurwiel", f"Dobrze {message.author}, wylizac twarog?"]
